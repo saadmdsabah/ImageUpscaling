@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upscaling</title>
+    <link rel = "icon" href ="{{url_for('static',filename='images/carlogo.jpg')}}" type="image/icon type">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel = "icon" href ="{{url_for('static',filename='logo_vae.jpg')}}" type="image/icon type">
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu&display=swap');
+
+h1 {
+    text-align: center;
+}
+
+form {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+body{
+    background-image: linear-gradient(rgba(0,0,0,0.60),rgba(0,0,0,0.60)),url("{{url_for('static',filename='background.jpg')}}");
+    color: white;
+    min-height: 100vh;
+}
+  
+*{
+    margin:0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
+}
+
+.section{
+    min-height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.hero{
+    width:80%;
+    margin:auto;
+    padding: 30px 0px;
+}
+
+article h1{
+    color: white;
+    font-size: 65px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #fcba03;
+}
+
+article h1::after{
+    content:"";
+    height:3px;
+    width: 225px;
+    background-color: #fcba03;
+    display: block;
+    margin: auto;
+}
+
+img{
+    margin:auto;
+    display: block;
+    margin-top: 40px;
+    height: 220px;
+    width:220px;
+    border-radius: 50%;
+    border:3px solid #bef4f7;
+}
+
+content{
+    font-size: 17px;
+    color:#ccc;
+    line-height: 1.5;
+}
+
+.sticky-footer{
+    position: sticky;
+    top: 100%;
+}
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+   
+  /* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+  
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" style="color: white; font-size: 23px;" href="/">ImgUp</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" style="color: white;" aria-current="page" href="/aboutus">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" style="color: white;" href="/aboutproject">About Project</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    <div class="section" style="text-align: center;">
+        <div class="hero">
+            <article>
+                <br>
+                <h1>About Project</h1>
+                <br><br>
+                <content style="color: white; font-size: 18px;">
+                    Our project revolves around the implementation of a Convolutional Autoencoder, employing Convolutional Neural Networks (CNNs) to process various image alterations. This innovative system adeptly handles noisy, blurred, or grayscale images, restoring clarity, color, and reducing imperfections. Leveraging HTML, CSS, and JavaScript, we've crafted a user-friendly web interface that allows users to upload images and witness the transformation in real-time. Utilizing Flask for the local server, this application showcases the power of deep learning in image processing, providing a seamless and accessible solution for enhancing visual content.<br><br>
+                    <span style="color:red">&#10004</span> <span style="font-size: 23px; font-weight:bold; color: #fcba03;">Security and Surveillance:</span> When law enforcement agencies have access to blurry images, such as CCTV footage or images captured from a distance or in low light conditions, these images can be uploaded to the platform. The convolutional autoencoder can work to reduce the blurriness, enhancing the details in the image. This process can potentially reveal important facial features, license plate numbers, or other critical details that were previously obscured due to blur.<br><br>                
+                    <span style="color:red">&#10004</span> <span style="font-size: 23px; font-weight:bold; color: #fcba03;">Medical Imaging Enhancement: </span>Convolutional autoencoders can be instrumental in enhancing medical images, such as X-rays, MRI scans, or CT scans. They can reduce noise, clarify details, and improve overall image quality.<br><br>
+                    <span style="color:red">&#10004</span> <span style="font-size: 23px; font-weight:bold; color: #fcba03;">E-commerce Product Image Enhancement: </span> Online retailers heavily rely on high-quality product images to attract customers. Convolutional autoencoders can be used to improve the quality of product images by removing noise, adding color corrections, and enhancing details. <br><br>
+                    <span style="color:red">&#10004</span> <span style="font-size: 23px; font-weight:bold; color: #fcba03;">Image Restoration and Enhancement: </span>This is beneficial in scenarios where old or damaged images need restoration or when improving the quality of images captured in unfavorable conditions is required.<br><br><br><br><br><br>                
+                </content>
+            </article>
+        </div>
+    </div>
+    <footer class="bg-dark text-center text-white sticky-footer">
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2023 Copyright:
+            <a class="text-white" href="/" style="text-decoration: none;">ImgUp</a>
+        </div>
+    </footer>
+</body>
+</html>
+
+
+
+
+

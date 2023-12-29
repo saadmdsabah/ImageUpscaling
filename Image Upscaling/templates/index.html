@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Upscaling</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Press Start 2P' rel='stylesheet'>
+    <link rel = "icon" href ="{{url_for('static',filename='logo_vae.jpg')}}" type="image/icon type">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.cdnfonts.com/css/akira-expanded');
+
+h1 {
+    text-align: center;
+}
+
+form {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body{
+    background-image: linear-gradient(rgba(0,0,0,0.60),rgba(0,0,0,0.60)),url("{{url_for('static',filename='background.jpg')}}");
+    font-family: Arial, sans-serif;
+}
+.container{
+    margin-top: 200px;
+    margin-bottom: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.form{
+    position: absolute;
+    max-width: 470px;
+    width: 100%;
+    padding: 5px;
+    border-radius: 6px;
+    background: #FFF;
+}
+.form.signup{
+    opacity: 0;
+    pointer-events: none;
+}
+.forms.show-signup .form.signup{
+    opacity: 1;
+    pointer-events: auto;
+}
+.forms.show-signup .form.login{
+    opacity: 0;
+    pointer-events: none;
+}
+header{
+    font-size: 28px;
+    font-weight: 600;
+    color: #232836;
+    text-align: center;
+}
+.form .field{
+    position: relative;
+    height: 50px;
+    width: 50%;
+    margin-top: 20px;
+    border-radius: 6px;
+}
+.field input,
+.field button{
+    height: 100%;
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 6px;
+}
+.field input{
+    outline: none;
+    padding: 0 15px;
+    border: 1px solid#CACACA;
+}
+.field input:focus{
+    border-bottom-width: 2px;
+}
+.eye-icon{
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #8b8b8b;
+    cursor: pointer;
+    padding: 5px;
+}
+.field button{
+    color: #fff;
+    margin-top: 12px;
+    background-color: #0171d3;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.field button:hover{
+    background-color: #016dcb;
+}
+.form-link{
+    text-align: center;
+    margin-top: 10px;
+}
+.form-link span,
+.form-link a{
+    font-size: 14px;
+    font-weight: 400;
+    color: #232836;
+}
+.form a{
+    color: #0171d3;
+    text-decoration: none;
+}
+.form-content a:hover{
+    text-decoration: underline;
+}
+.line{
+    position: relative;
+    height: 1px;
+    width: 100%;
+    margin: 36px 0;
+    background-color: #d4d4d4;
+}
+.line::before{
+    content: 'Or';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #FFF;
+    color: #8b8b8b;
+    padding: 0 15px;
+}
+  .qclass{
+    text-align: center;
+  }
+  .rrr{
+    text-align: center;
+  }
+  .tab { 
+            display: inline-block; 
+            margin-left: 40px; 
+        }
+    .reee{
+        padding-left: 15px;
+    }
+    body{
+            min-height: 100vh;
+        }
+        .sticky-footer{
+            position: sticky;
+            top: 100%;
+        }
+        /* Scroll bar design */
+        ::-webkit-scrollbar {
+    width: 15px;
+}
+
+label {
+  font-weight: bold;
+}
+
+select {
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.inner-div {
+    position: relative;
+    left: 50%; /* Aligns the left edge of the inner div at 50% of the container's width */
+    transform: translate(-50%, -50%); /* Centers the inner div precisely */
+}
+
+.cont {
+    display: flex;
+    justify-content: center;
+}
+
+.preview-container,
+.output-container {
+    flex: 1;
+}
+
+.preview-container{
+    margin-left: 27vw;
+    margin-bottom: 20px;
+}
+
+.output-container{
+    margin-right: 15vw;
+    margin-bottom: 20px;
+}
+
+
+@media (max-width: 1200px) {
+    .cont {
+        flex-direction: column;
+        align-items: center;
+    }
+    .preview-container{
+        margin-bottom: 50px;
+        margin-left: 0vw;
+    }
+
+    .output-container{
+        margin-bottom: 30px;
+        margin-right: 0vw;
+    }
+}
+
+.image {
+  margin-left: auto; 
+}
+  
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+   
+  /* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+  
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+    </style>   
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" style="color: white; font-size: 23px;" href="/">ImgUp</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" style="color: white;" aria-current="page" href="/aboutus">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" style="color: white;" href="/aboutproject">About Project</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    {% with messages = get_flashed_messages(category_filter=["success"]) %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% with messages = get_flashed_messages(category_filter=["error"]) %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <h1 style="margin-top: 50px; color: white;">AutoEnhance</h1>
+
+    <section class="container forms">
+        <div class="form login">
+            <div class="form-content" style="margin-top: 20px;">
+                <header>Upload an image</header>
+                <form action="/process" method="POST" style="color: rgb(0, 0, 0); margin-top: 20px;">
+                    <label for="type-select">Select enhancement type:</label>
+                    <select id="type-select" name="type">
+                      <option value="None">None</option>
+                      <option value="Blur reduction">Blur reduction</option>
+                      <option value="Noise reduction">Noise reduction</option>
+                      <option value="Colorize">Colorize</option>
+                    </select>
+                    <input type="submit" value="Submit" style="border-radius: 5px; padding: 3px; background-color: #ffffff;">
+                </form>
+            </div>
+            <div class="reee">
+                <form id="upload-form" enctype="multipart/form-data">
+                    <input type="file" id="file-input" accept="image/*" required style="max-width: 250px;">
+                    <div><p><br></p></div>
+                    <div class="field button-field inner-div">
+                        <button type="submit" id="submit-btn">CHECK</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <div class="cont">
+        <div class="preview-container">
+            <div class="image">
+                <h2 id="preview-label" style="display: none; color: rgb(255, 255, 255);"> &nbsp; &ensp;Original Image</h2>
+                <div id="preview" style="margin-top: 20px; margin-left: 38px;"></div>
+            </div>
+        </div>
+        <div class="output-container">
+            <dir class="image">
+                <h2 id="output-label" style="display: none; color: rgb(255, 255, 255);"> &ensp;Enhanced Image</h2>
+                <div id="output" style="margin-top: 20px; margin-left: 34px;"></div>
+                <button id="download-btn" class="btn btn-primary" style="display: none; margin-top: 17px; margin-left: 93px;">Download</button>
+            </dir>
+        </div>
+    </div>  
+
+    <footer class="bg-dark text-center text-white sticky-footer">
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2023 Copyright:
+            <a class="text-white" href="/" style="text-decoration: none;">ImgUp</a>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('file-input').addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const imgPreview = document.createElement('img');
+                imgPreview.src = event.target.result;
+                imgPreview.style.width = '224px';
+                imgPreview.style.height = '224px';
+                document.getElementById('preview').innerHTML = '';
+                document.getElementById('preview').appendChild(imgPreview);
+
+                document.getElementById('preview-label').style.display = 'block';
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+        document.getElementById('upload-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData();
+            const fileInput = document.getElementById('file-input');
+            formData.append('image', fileInput.files[0]);
+
+            fetch('/process_image', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                const previewLabel = document.getElementById('preview-label');
+                const outputLabel = document.getElementById('output-label');
+                
+                if (data.result) {
+                    document.getElementById('output').innerHTML = `<img src="${data.result}" alt="Processed Image">`;
+                    previewLabel.style.display = 'block';
+                    outputLabel.style.display = 'block';
+                } else {
+                    // Handle error or no image case
+                    previewLabel.style.display = 'none';
+                    outputLabel.style.display = 'none';
+                    document.getElementById('preview').innerHTML = '';
+                    document.getElementById('output').innerHTML = '';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+
+        // download upscaled image
+        function downloadImage() {
+        const outputImage = document.getElementById('output').querySelector('img');
+        if (outputImage) {
+            const imageUrl = outputImage.src;
+            const a = document.createElement('a');
+            a.href = imageUrl;
+            a.download = 'upscaled_image.png';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    }
+        const outputDiv = document.getElementById('output');
+        const downloadButton = document.getElementById('download-btn');
+
+        outputDiv.addEventListener('DOMNodeInserted', function (event) {
+            if (event.target.tagName === 'IMG') {
+                downloadButton.style.display = 'block';
+            }
+        });
+
+        downloadButton.addEventListener('click', function () {
+            downloadImage();
+        });
+    </script>
+</body>
+</html>
+

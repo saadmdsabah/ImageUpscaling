@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upscaling</title>
+    <link rel = "icon" href ="{{url_for('static',filename='images/carlogo.jpg')}}" type="image/icon type">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel = "icon" href ="{{url_for('static',filename='logo_vae.jpg')}}" type="image/icon type">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu&display=swap');
+
+h1 {
+    text-align: center;
+}
+
+form {
+    text-align: center;
+    margin-bottom: 20px;
+}
+*{
+    margin:0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
+}
+
+  body{
+    background-image: linear-gradient(rgba(0,0,0,0.60),rgba(0,0,0,0.60)),url("{{url_for('static',filename='background.jpg')}}");
+    color: white;
+    font-family: Arial, sans-serif;
+  }
+
+  .vvvvv{
+    text-align: center;
+  }
+  
+  .text-blk {
+    font-style:normal ;
+    color: black;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    line-height: 25px;
+  }
+  
+  .responsive-container-block {
+    min-height: 75px;
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    justify-content: space-evenly;
+  }
+  
+  .team-head-text {
+    font-size: 48px;
+    text-align: center;
+  }
+  
+  .team-head-text {
+    font-size: 65px;
+    font-weight: 500;
+    line-height: 50px;
+    width: 100%;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 50px;
+    margin-left: 0px;
+  }
+
+  .team-head-text::after{
+    content:"";
+    height:3px;
+    width: 300px;
+    background-color: #fcba03;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+}
+  
+  .container {
+    max-width: 1380px;
+    margin-top: 60px;
+    margin-right: auto;
+    margin-bottom: 60px;
+    margin-left: auto;
+    padding-top: 0px;
+    padding-right: 30px;
+    padding-bottom: 0px;
+    padding-left: 30px;
+  }
+  
+  .card {
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 4px 20px 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 30px;
+    padding-right: 25px;
+    padding-bottom: 30px;
+    padding-left: 25px;
+    border-radius: 10%;
+    max-width: 350px;
+  }
+  
+  .card-container {
+    background-color: #FFFBF5;
+    width: 280px;
+    margin-top: 0px;
+    margin-right: 10px;
+    margin-bottom: 50px;
+    margin-left: 10px;
+    border-radius: 10%;
+  }
+  
+  .name {
+    margin-top: 20px;
+    margin-right: 0px;
+    margin-bottom: 5px;
+    margin-left: 0px;
+    font-size: 18px;
+    font-weight: 800;
+  }
+  
+  .feature-text {
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 8px;
+    margin-left: 0px;
+    color: rgb(122, 122, 122);
+    line-height: 20px;
+  }
+  
+  .team-image-wrapper {
+    clip-path: circle(50% at 50% 50%);
+    width: 130px;
+    height: 130px;
+  }
+  
+.team-member-image {
+  max-width: 100%;
+}
+
+/* Track */
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+   
+  /* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+  
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+    </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" style="color: white; font-size: 23px;" href="/">ImgUp</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" style="color: white;" aria-current="page" href="/aboutus">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style="color: white;" href="/aboutproject">About Project</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+</nav>
+    <div class="responsive-container-block container">
+        <h1 class="text-blk team-head-text" style="color:#fcba03; font-size: 65px;">
+          Meet the Team
+        </h1>
+        <div class="vvvvv">
+            <p class="text-blk" style="color: white;">
+              Our team fostered collaborative synergy by amalgamating diverse expertise in neural networks, web development, and image processing. Through coordinated efforts, we seamlessly integrated CNN-based autoencoders with web technologies, capitalizing on each member's strengths to ensure a cohesive, user-centric solution. Our collective commitment and communication facilitated the convergence of deep learning proficiency and web implementation, resulting in a robust, intuitive platform for image enhancement.<br><br><br><br>
+            </p>
+        </div>
+        <div class="responsive-container-block">
+          <div class="responsive-cell-block wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12 card-container">
+            <div class="card" style="width: 320px;">
+              <div class="team-image-wrapper">
+                <img class="team-member-image" src="{{url_for('static',filename='team_member2.jpg')}}">
+              </div>
+              <p class="text-blk name">
+                Nihaal Anupoju
+              </p>
+              <p class="text-blk feature-text">
+                ML Model Developer <br><br> VIT Chennai <br> B.Tech 3rd Year 
+              </p>
+              <p class="text-blk feature-text">
+                <br><a href="http://www.linkedin.com/in/nihaal-a-o84"><img src="{{url_for('static',filename='linkedin.png')}}" alt="" height="30px" width="30px"></a> &ensp;
+                  <a href="mailto:nihaal.a084@gmail.com"><img src="{{url_for('static',filename='gmail.png')}}" alt="" height="30px" width="30px"></a>
+              </p>
+            </div>
+          </div>
+          <div class="responsive-cell-block wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12 card-container">
+            <div class="card" style="width: 320px;">
+              <div class="team-image-wrapper">
+                <img class="team-member-image" src="{{url_for('static',filename='team_member3.jpg')}}">
+              </div>
+              <p class="text-blk name">
+                Saad Sabahuddin <br>
+              </p>
+                <p class="text-blk feature-text">
+                  Web/Flask Integration <br><br> VIT Chennai <br> B.Tech 3rd Year <br>
+                </p>
+                <p class="text-blk feature-text">
+                  <br><a href="https://www.linkedin.com/in/saad-sabahuddin-476a74220/"><img src="{{url_for('static',filename='linkedin.png')}}" alt="" height="30px" width="30px"></a> &ensp;
+                  <a href="mailto:saadmdsabahuddin@gmail.com"><img src="{{url_for('static',filename='gmail.png')}}" alt="" height="30px" width="30px"></a>
+                </p>
+            </div>
+          </div>
+          <div class="responsive-cell-block wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12 card-container">
+            <div class="card" style="width: 320px;">
+              <div class="team-image-wrapper">
+                <img class="team-member-image" src="{{url_for('static',filename='team_member1.jpg')}}">
+              </div>
+              <p class="text-blk name">
+                Aditi Raj 
+                <p class="text-blk feature-text">
+                  Web Developer <br><br> VIT Chennai <br> B.Tech 3rd Year 
+                </p>
+                <p class="text-blk feature-text">
+                  <br><a href="https://www.linkedin.com/in/aditi-raj-708a9b22a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><img src="{{url_for('static',filename='linkedin.png')}}" alt="" height="30px" width="30px"></a> &ensp;
+                  <a href="mailto:aditirajpathak@gmail.com"><img src="{{url_for('static',filename='gmail.png')}}" alt="" height="30px" width="30px"></a>
+                </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <footer class="bg-dark text-center text-white sticky-footer">
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2023 Copyright:
+          <a class="text-white" href="/" style="text-decoration: none;">ImgUp</a>
+        </div>
+    </footer>
+</body>
+</html>
