@@ -5,7 +5,7 @@ Image upscaling is crucial in various domains where high-resolution visuals are 
 Consider applications in medical imaging, where enhanced resolution aids in precise diagnostics. Similarly, in surveillance systems, upscaling with noise reduction significantly improves the accuracy of object recognition. Additionally, historical image restoration benefits from this process, reviving aged photographs into vivid, detailed representations. These features collectively empower diverse fields, ranging from art and entertainment to scientific analysis, by providing enhanced, more interpretable visual data.
 
 ## Run the application
-●	Run the requirements.txt file in the terminal
+●	Run pip install requirements.txt in the terminal
 
 ●	Run all the Python files in the Kaggle notebook(recommended) given in the folder to get h5 files and add them to the folder in which the flask file is located
 
